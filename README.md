@@ -47,7 +47,7 @@ lookup_plugins=./black-ansible/plugins/lookup
 All roles tested on ubuntu 14.04 and part are tested on 16.04
 
 ## TODO
-
+- add config example
 - seperate reboot role
 - add missing default for roles
 
