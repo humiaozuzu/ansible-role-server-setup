@@ -15,7 +15,8 @@ playbooks and tasks to do server connection init and basic setup
 
 - configure apt
 - configure ipv6
-- configure dns - configure hosts
+- configure dns 
+- configure hosts
 - common settings
 	- hostname
 	- package upgrade
@@ -32,7 +33,7 @@ playbooks and tasks to do server connection init and basic setup
 ## how to use it in your ansible project
 
 
-1.clone this repo as submodule to your ansible project 
+1.clone this repo as submodule to your ansible project
 
 2.add roles/plugins path to your `ansible.cfg`
 
