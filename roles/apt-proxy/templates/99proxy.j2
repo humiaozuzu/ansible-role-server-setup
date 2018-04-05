@@ -1,0 +1,4 @@
+{% for domain in apt_proxy_domains %}
+Acquire::http::Proxy::{{ domain }} "{{ apt_http_proxy }}";
+Acquire::https::Proxy::{{ domain }} "{{ apt_https_proxy }}";
+{% endfor %}

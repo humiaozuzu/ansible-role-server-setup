@@ -1,0 +1,22 @@
+---
+- name: ensure limits are applied
+  lineinfile:
+    dest: '{{ item }}'
+    line: 'session    required   pam_limits.so'
+    insertafter: EOF
+    state: present
+  with_items:
+    - /etc/pam.d/su
+    - /etc/pam.d/sudo
+    - /etc/pam.d/common-session
+    - /etc/pam.d/common-session-noninteractive
+
+- name: increase open file limits
+  lineinfile: dest=/etc/security/limits.conf line="{{ item }}"
+  with_items:
+    - "*      hard    nofile    100000"
+    - "*      soft    nofile    100000"
+
+- name: tweak sysctl
+  sysctl: name={{ item.key }} value={{ item.value }} state=present reload=yes
+  with_dict: '{{sysctl_tweak}}'

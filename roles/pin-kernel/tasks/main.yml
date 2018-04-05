@@ -1,0 +1,34 @@
+---
+# skip linode
+- assert:
+    that: "'linode' not in ansible_kernel"
+    msg: "Linode XEN is not supported"
+
+# check grub-pc
+- name: check if grub-pc is installed
+  command: dpkg-query -W -f='${Status}' grub-pc
+  register: deb_check
+  changed_when: False
+
+- assert:
+    that: "deb_check.stdout.find('ok installed') != -1"
+    msg: "grub-pc is not installed, you should install it manually"
+
+- include: install_debian.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_release == "wheezy"
+
+- include: install_ubuntu.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "14.04"
+
+- name: remove unwanted kernels
+  shell: apt-get -y purge $(dpkg -l|egrep '^ii  linux-(im|he)'|awk '{print $2}'|grep -v {{ kernel_pin_version }})
+  args:
+    warn: no
+  register: remove_result
+  changed_when: "'The following packages will be REMOVED' in remove_result.stdout"
+
+- include: reboot.yml
+  when: "'local' not in group_names"
+
+- include: reboot_vagrant.yml
+  when: "'local' in group_names"

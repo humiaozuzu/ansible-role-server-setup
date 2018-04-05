@@ -1,0 +1,5 @@
+---
+- name: restart vnstat
+  service:
+    name: vnstat
+    state: restarted

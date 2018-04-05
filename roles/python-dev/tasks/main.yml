@@ -1,0 +1,37 @@
+---
+- name: install python dev related packages
+  apt: pkg={{ item }} state=present
+  with_items:
+    - python-dev
+    - supervisor
+    - zlib1g-dev
+    - libjpeg-dev
+    - libfreetype6-dev
+    - libpng12-dev
+    - libffi-dev
+    - libssl-dev
+    - libreadline-dev
+    - libevent-dev
+    - libpq-dev
+    - libmysqlclient-dev
+    - libsqlite3-dev
+    - libyaml-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - libcurl4-openssl-dev
+    - libncurses5-dev
+    - libldap2-dev
+    - libsasl2-dev
+    - libncurses5-dev
+
+
+- name: configure supervisor open file limit
+  lineinfile: dest=/etc/default/supervisor line='ulimit -n 51200' state=present
+  notify:
+    - restart supervisor
+
+- name: install virtualenv
+  pip: name={{ item }}
+  with_items:
+    - virtualenv
+    - virtualenvwrapper

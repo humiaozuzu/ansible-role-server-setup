@@ -1,0 +1,14 @@
+---
+- name: add haproxy ppa
+  apt_repository: repo='ppa:vbernat/haproxy-1.7' state=present update_cache=yes
+
+- name: install haproxy
+  apt:
+    pkg: haproxy
+    state: present
+
+- name: ensure haproxy is started and enabled
+  service:
+    name: haproxy
+    state: started
+    enabled: yes

@@ -1,0 +1,14 @@
+---
+- name: remove resolvconf
+  apt: pkg=resolvconf state=absent purge=yes
+
+- name: add dhclient hook to prevent it from updating /etc/resolv.conf
+  copy: >
+    src=nodnsupdate
+    dest=/etc/dhcp/dhclient-enter-hooks.d/nodnsupdate
+    owner=root
+    group=root
+    mode=0644
+
+- name: copy resolv.conf
+  template: src=resolv.conf.j2 dest=/etc/resolv.conf group=root owner=root mode=0644

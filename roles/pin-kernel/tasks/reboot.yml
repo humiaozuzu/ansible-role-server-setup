@@ -1,0 +1,27 @@
+---
+- name: Check for reboot hint.
+  shell: if [ $(readlink -f /vmlinuz) != /boot/vmlinuz-$(uname -r) ]; then echo 'reboot'; else echo 'no'; fi
+  register: reboot_hint
+  failed_when: False
+  changed_when: False
+
+- name: Rebooting ...
+  command: shutdown -r now "Ansible kernel update applied"
+  async: 0
+  poll: 0
+  # ignore_errors: true
+  when: reboot_hint.stdout.find("reboot") != -1
+  register: rebooting
+
+- name: Wait for reboot...
+  pause: seconds=20
+  when: rebooting|changed
+
+# Now we will run a local ping to it's IP on this host until it returns.
+- local_action: shell ansible -m ping {{ inventory_hostname }}
+  become: False
+  register: result
+  until: result.rc == 0
+  retries: 30
+  delay: 10
+  when: rebooting|changed

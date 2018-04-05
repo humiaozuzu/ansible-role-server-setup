@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: true
+
+  roles:
+    - apt-tune
+    - disable-ipv6
+    - uninstall-aegis
+    - dns
+    - hosts
+    - common
+    - timezone
+    - locale
+    - ntp
+    - sysctl
+    - vnstat
+    - newrelic

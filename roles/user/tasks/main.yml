@@ -1,0 +1,5 @@
+---
+- include: user.yml
+
+- include: host_user.yml
+  when: host_users is defined

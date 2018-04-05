@@ -1,0 +1,43 @@
+---
+- name: check aegis
+  stat: path=/usr/local/aegis/aegis_update
+  register: aegis_path
+
+- name: remove pip/apt mirror
+  file: path="{{ item }}" state=absent
+  with_items:
+    - /root/.pip/pip.conf
+    - /root/.pydistutils.cfg
+    - /etc/apt/sources.list.d/sources-aliyun-0.list
+  when: aegis_path.stat.exists == true
+
+# - name: add aliyun ubuntu repository
+#   copy:
+#     src: sources.list
+#     dest: /etc/apt/sources.list
+#     owner: root
+#     group: root
+#     mode: 0644
+#   register: aliyun_repo
+
+# - name: apt-get update when repo changed
+#   apt:
+#     update_cache: yes
+#   when: aliyun_repo.changed
+
+- name: download uninstall script
+  get_url: url=http://update.aegis.aliyun.com/download/uninstall.sh dest=/tmp/uninstall_aegis.sh mode="u+rwx"
+  when: aegis_path.stat.exists == true
+
+- name: run uninstall script
+  command: bash /tmp/uninstall_aegis.sh
+  args:
+      removes: /usr/local/aegis
+  when: aegis_path.stat.exists == true
+
+- name: stop agentwatch
+  service:
+    name: agentwatch
+    state: stopped
+    enabled: no
+  when: aegis_path.stat.exists == true

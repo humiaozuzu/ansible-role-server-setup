@@ -1,0 +1,38 @@
+---
+- name: check if user exists
+  stat: path='/home/{{ item.username }}'
+  with_items: '{{host_users}}'
+  register: path_stat
+  no_log: yes
+
+- name: create host-specific user
+  user: name={{ item.username }} state=present groups="{{ item.groups | join(',') }}" shell='/bin/bash' createhome=yes
+  with_items: '{{host_users}}'
+  when: inventory_hostname in item.hosts
+  no_log: yes
+
+- name: upload authorized key for host-specific user
+  authorized_key: user="{{item.0.username}}" key="{{item.1}}"
+  with_subelements:
+    - '{{host_users}}'
+    - ssh_key
+  when: inventory_hostname in item.0.hosts
+  no_log: yes
+
+- name: copy vimrc for host-specific user
+  copy: src=vimrc dest='/home/{{ item.0.username }}/.vimrc'
+        owner={{ item.0.username }} group={{ item.0.username }} mode=0644
+  with_together:
+    - '{{host_users}}'
+    - '{{path_stat.results}}'
+  when: item.1.stat.exists == false and inventory_hostname in item.0.hosts
+  no_log: yes
+
+- name: copy bashrc for host-specific user
+  copy: src=bashrc dest='/home/{{ item.0.username }}/.bashrc'
+        owner={{ item.0.username }} group={{ item.0.username }} mode=0644
+  with_together:
+    - '{{host_users}}'
+    - '{{path_stat.results}}'
+  when: item.1.stat.exists == false and inventory_hostname in item.0.hosts
+  no_log: yes

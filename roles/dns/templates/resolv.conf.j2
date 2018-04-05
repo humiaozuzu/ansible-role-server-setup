@@ -1,0 +1,12 @@
+{% for search_domain in dns_search_domains %}
+search {{ search_domain }}
+{% endfor %}
+{% for nameserver in dns_nameservers_host_map[inventory_hostname] %}
+nameserver {{ nameserver }}
+{% endfor %}
+{% for nameserver in dns_nameservers %}
+nameserver {{ nameserver }}
+{% endfor %}
+{% for option in dns_options %}
+options {{ option }}
+{% endfor %}

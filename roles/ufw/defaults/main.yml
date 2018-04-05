@@ -1,0 +1,9 @@
+---
+# defaults file for ufw
+
+ufw_ipv6: "yes"
+ufw_incoming_policy: "deny"
+ufw_outgoing_policy: "allow"
+ufw_rules: []
+ufw_state: disabled
+ufw_logging: "off"

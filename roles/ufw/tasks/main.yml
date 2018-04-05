@@ -1,0 +1,29 @@
+---
+- name: Set ufw IPv6
+  lineinfile: >
+    dest=/etc/default/ufw
+    regexp='^IPV6='
+    line="IPV6={{ ufw_ipv6 }}"
+    state=present
+  notify: reload ufw
+
+- name: Set incoming policy
+  ufw: policy={{ ufw_incoming_policy }} direction=incoming
+
+- name: Set ougoing policy
+  ufw: policy={{ ufw_outgoing_policy }} direction=outgoing
+
+- name: reset rules
+  ufw:
+    state: reset
+
+- name: Configure ufw rules
+  ufw: >
+    rule={{ item.rule|default("allow") }}
+    proto={{ item.proto|default(omit) }}
+    src={{ item.src|default(omit) }}
+    to_port={{ item.to_port|default(omit) }}
+  with_items: '{{ufw_rules}}'
+
+- name: Enable ufw
+  ufw: state={{ ufw_state }} logging={{ ufw_logging }}

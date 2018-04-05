@@ -1,0 +1,12 @@
+---
+
+- name: ensure sudo is present
+  apt: pkg=sudo state=present update_cache=yes cache_valid_time=86400
+
+- name: set up sudoer
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: '^%sudo'
+    line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+    state: present
+    validate: '/usr/sbin/visudo -cf %s'

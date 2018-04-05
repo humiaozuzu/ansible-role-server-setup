@@ -1,0 +1,8 @@
+---
+# 1. disable install recommends packages
+# 2. stop unattended upgrades as it not recommended for prod env and also the py3 script will cause memory leak
+- name: install tuning configs to apt.conf.d
+  copy: src='{{ item }}' dest='/etc/apt/apt.conf.d/{{ item }}' mode=0644 owner=root group=root
+  with_items:
+    - 99no-recommends
+    - 99no-upgrade

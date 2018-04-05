@@ -1,0 +1,9 @@
+---
+- name: copy hosts
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: 0644
+    backup: no

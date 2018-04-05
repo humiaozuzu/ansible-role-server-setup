@@ -1,0 +1,4 @@
+---
+- name: remove biosdevname
+  apt: pkg=biosdevname state=absent
+  notify: update-initramfs

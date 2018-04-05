@@ -1,0 +1,94 @@
+---
+- name: set hostname
+  hostname: name={{ inventory_hostname }}
+  when: inventory_hostname is defined
+
+- name: update packages index
+  apt: update_cache=yes cache_valid_time=86400
+
+- name: install common packages
+  apt: pkg='{{ item }}' state=present
+  with_items:
+    - colordiff
+    - rlwrap
+    - git
+    - curl
+    - wget
+    - dfc
+    - bwm-ng
+    - dnsutils
+    - htop
+    - iftop
+    - iotop
+    - ipython
+    - nmap
+    - rsync
+    - tcpdump
+    - tmux
+    - tree
+    - zip
+    - unzip
+    - bash-completion
+    - apt-transport-https
+    - debian-goodies
+    - ntp
+    - vim
+    - python-software-properties
+    - pkg-config
+    - build-essential
+    - autoconf
+    - automake
+    - libtool
+    - bison
+    - curl
+    - gcc
+    - g++
+    - swig
+    - openssl
+    - ca-certificates
+
+- name: install silversearcher-ag
+  apt: pkg=silversearcher-ag
+  when: (ansible_distribution == "Ubuntu" and ansible_distribution_major_version|int >= 14) or
+        (ansible_distribution == "Debian" and ansible_distribution_major_version|int >= 8)
+
+- name: fix dhclient random udp port error
+  apt: pkg='{{ item }}' state=present
+  with_items:
+    - isc-dhcp-client-noddns
+  when: ansible_distribution_release == 'trusty'
+
+- name: remove unwanted packages
+  apt: pkg='{{ item }}' purge=yes state=absent
+  with_items:
+    - modemmanager
+    - network-manager
+    - network-manager-gnome
+    - network-manager-pptp
+    - network-manager-pptp-gnome
+    - nscd
+    - whoopsie
+    - ubuntu-release-upgrader-core
+    - apt-xapian-index
+
+- name: remove unneeded packages
+  apt: pkg='{{ item }}' state=absent
+  with_items:
+    - apparmor
+    - ntpdate
+
+- name: purge unneeded packages
+  apt: pkg='{{ item }}' purge=yes state=absent
+  with_items:
+    - apparmor
+    - ntpdate
+
+- name: auto-remove packages
+  command: apt-get -y autoremove
+  args:
+    warn: no
+  register: autoremove_result
+  changed_when: "'The following packages will be REMOVED' in autoremove_result.stdout"
+
+- name: setup vim as default editor
+  alternatives: name=editor path=/usr/bin/vim.basic

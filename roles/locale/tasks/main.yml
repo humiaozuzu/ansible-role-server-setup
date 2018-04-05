@@ -1,0 +1,6 @@
+---
+- name: update default locale
+  template: src=locale.j2 dest=/etc/default/locale owner=root group=root mode=0644
+
+- name: locale gen
+  locale_gen: name="{{ locale_env.lang }}" state=present

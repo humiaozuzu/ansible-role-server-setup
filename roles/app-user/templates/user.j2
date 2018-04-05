@@ -1,0 +1,6 @@
+{% for user_sudo_cmd in item.user_sudo_cmds %}
+{{ item.username }} ALL=(root) NOPASSWD:{{ user_sudo_cmd }}
+{% endfor %}
+{% for group_sudo_cmd in item.group_sudo_cmds %}
+%{{ item.username }} ALL=(root) NOPASSWD:{{ group_sudo_cmd }}
+{% endfor %}

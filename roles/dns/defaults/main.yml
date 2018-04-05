@@ -1,0 +1,12 @@
+---
+
+dns_nameservers: []
+dns_search_domains: []
+dns_options:
+  - rotate
+  - timeout:1
+
+# set dns for specific host
+dns_nameservers_host_map: {}
+# if dns not specific for host, skip role for this host
+dns_skip_unspecified_host: False

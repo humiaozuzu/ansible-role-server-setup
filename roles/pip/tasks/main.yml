@@ -1,0 +1,9 @@
+---
+- name: install python-setuptools
+  apt: pkg=python-setuptools state=present
+
+- name: install python-pip
+  apt: pkg=python-pip state=present
+
+# - name: install wheel
+  # pip: name=wheel state=present

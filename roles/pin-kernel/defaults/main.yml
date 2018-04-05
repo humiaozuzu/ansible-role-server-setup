@@ -1,0 +1,5 @@
+---
+
+# 3.16.0-43 -> aliyun ubuntu
+# 3.2.0-4-amd64 -> debian
+kernel_pin_version: 3.16.0-77

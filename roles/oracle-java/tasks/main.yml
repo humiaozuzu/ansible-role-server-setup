@@ -1,0 +1,20 @@
+---
+- name: add java ppa
+  apt_repository: repo='ppa:webupd8team/java'
+  register: redis_repo
+
+- name: apt-get update when repo changed
+  apt:
+    update_cache: yes
+  when: redis_repo.changed
+
+- name: accept oracle jdk licence
+  debconf: name={{oracle_installer_key}} question='shared/{{oracle_license_key}}' value='true' vtype='select'
+
+- name: install java
+  apt:
+    pkg: '{{item}}'
+    update_cache: yes
+    cache_valid_time: 86400
+    state: present
+  with_items: '{{oracle_packages}}'

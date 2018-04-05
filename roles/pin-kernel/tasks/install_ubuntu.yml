@@ -1,0 +1,14 @@
+---
+- name: install old version kernel
+  apt: pkg='{{ item }}' state=present update_cache=yes cache_valid_time=86400
+  with_items:
+    - linux-image-{{kernel_pin_version}}-generic
+    - linux-image-extra-{{kernel_pin_version}}-generic
+    - linux-headers-{{kernel_pin_version}}-generic
+
+- name: remove kernel meta package
+  apt: pkg='{{ item }}' state=absent
+  with_items:
+    - linux-image-generic
+    - linux-headers-generic
+    - linux-generic

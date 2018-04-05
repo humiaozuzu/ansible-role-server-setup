@@ -1,0 +1,25 @@
+---
+- name: install vnstat
+  apt:
+    pkg: vnstat
+    state: present
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: configure vnstat
+  template:
+    src: vnstat.conf.j2
+    dest: /etc/vnstat.conf
+    group: root
+    owner: root
+    mode: 0644
+  notify:
+    - restart vnstat
+
+- meta: flush_handlers
+
+- name: ensure vnstat is started and enabled
+  service:
+    name: vnstat
+    state: started
+    enabled: yes

@@ -1,0 +1,4 @@
+---
+
+- include: install.yml
+  when: not (dns_skip_unspecified_host == true and inventory_hostname not in dns_nameservers_host_map)

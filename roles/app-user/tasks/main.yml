@@ -1,0 +1,13 @@
+---
+- name: create app users
+  user: name={{ item.username }} state=present groups="{{ item.groups | join(',') }}" shell='/bin/bash' createhome=yes append=yes
+  with_items: '{{app_users}}'
+
+- name: create app users sudoer file
+  template:
+    src: user.j2
+    dest: /etc/sudoers.d/{{ item.username }}
+    group: root
+    owner: root
+    mode: 0440
+  with_items: '{{app_users}}'

@@ -1,0 +1,23 @@
+---
+- name: copy apt repo
+  copy: src=moosefs.list dest='/etc/apt/sources.list.d/moosefs.list'
+        owner=root group=root mode=0644
+
+- name: add apt key
+  apt_key: url=http://ppa.moosefs.com/stable/apt/moosefs.key state=present
+
+- name: install moosefs-client
+  apt: pkg=moosefs-client state=present install_recommends=no update_cache=yes
+
+- name: make mount point
+  file: path={{ moosefs.mfsmount }} state=directory owner=daemon group=daemon mode=0755
+
+- name: mount mfs
+  raw: test -e {{ moosefs.mfsmount }}/.mounted || mfsmount {{ moosefs.mfsmount }} -H {{ moosefs.master }} && touch {{ moosefs.mfsmount }}/.mounted
+
+- name: fstab
+  lineinfile:
+    dest: /etc/fstab
+    regexp: '^mfsmount'
+    line: 'mfsmount {{ moosefs.mfsmount }} fuse mfsmaster={{ moosefs.master }},_netdev 0 0'
+    state: present

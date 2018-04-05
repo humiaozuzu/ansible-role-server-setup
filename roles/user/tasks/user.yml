@@ -1,0 +1,31 @@
+---
+- name: check if user exists
+  stat: path='/home/{{ item.username }}'
+  with_items: '{{users}}'
+  register: path_stat
+
+#- debug: var=path_stat
+
+- name: create user
+  user: name={{ item.username }} state=present groups="{{ item.groups | join(',') }}" shell='/bin/bash' createhome=yes
+  with_items: '{{users}}'
+
+- name: upload authorized key
+  authorized_key: user="{{item.0.username}}" key="{{item.1}}"
+  with_subelements:
+    - '{{ users }}'
+    - ssh_key
+
+- name: copy vimrc
+  copy: src=vimrc dest='/home/{{ item.item.username }}/.vimrc'
+        owner={{ item.item.username }} group={{ item.item.username }} mode=0644
+  with_items: '{{path_stat.results}}'
+  when: item.stat.exists == false
+  no_log: yes
+
+- name: copy bashrc
+  copy: src=bashrc dest='/home/{{ item.item.username }}/.bashrc'
+        owner={{ item.item.username }} group={{ item.item.username }} mode=0644
+  with_items: '{{path_stat.results}}'
+  when: item.stat.exists == false
+  no_log: yes
