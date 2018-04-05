@@ -28,10 +28,9 @@ playbooks and tasks to do server connection init and basic setup
 - configure sysctl
 - pin linux kernel
 - manage iptables with ufw
-- manage users
+- manage users and ssh keys (support host-level management)
 
 ## how to use it in your ansible project
-
 
 1.clone this repo as submodule to your ansible project
 
