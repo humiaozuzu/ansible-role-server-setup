@@ -4,7 +4,7 @@ dns_nameservers: []
 dns_search_domains: []
 dns_options:
   - rotate
-  - timeout:1
+  - timeout:2
 
 # set dns for specific host
 dns_nameservers_host_map: {}
