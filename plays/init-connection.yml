@@ -5,7 +5,7 @@
   gather_facts: False
 
   pre_tasks:
-  - name: install python2 for some fucking distribution
+  - name: install python2 for ubuntu 16.04
     raw: bash -c "test -e /usr/bin/python || (apt -qqy update && apt install -qqy python-minimal)"
     register: output
     changed_when:
