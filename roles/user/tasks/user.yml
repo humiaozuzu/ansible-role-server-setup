@@ -10,6 +10,18 @@
   user: name={{ item.username }} state=present groups="{{ item.groups | join(',') }}" shell='/bin/bash' createhome=yes
   with_items: '{{users}}'
 
+- name: create app users sudoer file
+  template:
+    src: user.j2
+    dest: /etc/sudoers.d/{{ item.username }}
+    group: root
+    owner: root
+    mode: 0440
+  with_items: '{{app_users}}'
+  when: (item.user_sudo_cmds is defined and item.user_sudo_cmds) or (item.group_sudo_cmds is defined and item.group_sudo_cmds)
+
+# TODO: remove sudoer file with related column deleted
+
 - name: upload authorized key
   authorized_key: user="{{item.0.username}}" key="{{item.1}}"
   with_subelements:
