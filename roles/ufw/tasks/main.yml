@@ -25,5 +25,14 @@
     to_port={{ item.to_port|default(omit) }}
   with_items: '{{ufw_rules}}'
 
+- name: delete ufw rules
+  ufw: >
+    rule={{ item.rule|default("allow") }}
+    proto={{ item.proto|default(omit) }}
+    src={{ item.src|default(omit) }}
+    to_port={{ item.to_port|default(omit) }}
+    delete=yes
+  with_items: '{{ufw_delete_rules}}'
+
 - name: Enable ufw
   ufw: state={{ ufw_state }} logging={{ ufw_logging }}
