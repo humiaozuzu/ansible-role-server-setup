@@ -13,10 +13,6 @@
 - name: Set ougoing policy
   ufw: policy={{ ufw_outgoing_policy }} direction=outgoing
 
-- name: reset rules
-  ufw:
-    state: reset
-
 - name: Configure ufw rules
   ufw: >
     rule={{ item.rule|default("allow") }}
