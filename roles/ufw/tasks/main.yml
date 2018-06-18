@@ -1,4 +1,7 @@
 ---
+- name: ensure ufw package installed
+  apt: pkg=ufw state=present
+
 - name: Set ufw IPv6
   lineinfile: >
     dest=/etc/default/ufw
