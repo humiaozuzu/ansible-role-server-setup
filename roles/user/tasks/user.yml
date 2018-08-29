@@ -1,4 +1,8 @@
 ---
+- name: set root user password
+  user: name=root password={{ root_password | password_hash('sha512', salt='sa1t') }}
+  when: root_password is defined
+
 - name: check if user exists
   stat: path='/home/{{ item.username }}'
   with_items: '{{users}}'
