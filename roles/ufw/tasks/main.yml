@@ -22,6 +22,7 @@
     proto={{ item.proto|default(omit) }}
     src={{ item.src|default(omit) }}
     to_port={{ item.to_port|default(omit) }}
+    comment={{ item.comment|default(omit) }}
   with_items: '{{ufw_rules}}'
 
 - name: delete ufw rules
