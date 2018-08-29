@@ -7,7 +7,6 @@ sysctl_tweak:
   net.core.netdev_max_backlog: 65535
   net.ipv4.tcp_syncookies: 1
   net.ipv4.tcp_tw_reuse: 1
-  net.ipv4.tcp_tw_recycle: 0
   net.ipv4.tcp_timestamps: 1
   net.ipv4.tcp_fin_timeout: 30
   net.ipv4.tcp_keepalive_time: 1200
