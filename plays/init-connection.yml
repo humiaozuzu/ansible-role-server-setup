@@ -14,5 +14,5 @@
 
   roles:
     - sudoers
-    - { role: user, users: "{{ sa_users }}" }
+    - user
     - ssh
