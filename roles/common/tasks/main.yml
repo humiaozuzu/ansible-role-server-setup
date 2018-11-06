@@ -74,13 +74,11 @@
 - name: remove unneeded packages
   apt: pkg='{{ item }}' state=absent
   with_items:
-    - apparmor
     - ntpdate
 
 - name: purge unneeded packages
   apt: pkg='{{ item }}' purge=yes state=absent
   with_items:
-    - apparmor
     - ntpdate
 
 - name: auto-remove packages
