@@ -3,14 +3,14 @@
   become: true
 
   roles:
-    - apt-tune
-    - disable-ipv6
-    - uninstall-aegis
-    - dns
-    - hosts
-    - common
-    - timezone
-    - locale
-    - ntp
-    - sysctl
-    - vnstat
+    - server-setup/apt-tune
+    - server-setup/disable-ipv6
+    - server-setup/uninstall-aegis
+    - server-setup/dns
+    - server-setup/hosts
+    - server-setup/common
+    - server-setup/timezone
+    - server-setup/locale
+    - server-setup/ntp
+    - server-setup/sysctl
+    - server-setup/vnstat

@@ -50,7 +50,7 @@ put it in `requirements.yml`
 
 ```
 - src: https://github.com/humiaozuzu/ansible-role-server-setup
-  name: humiaozuzu.server-setup
+  name: server-setup
   version: master
 ```
 
