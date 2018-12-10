@@ -1,0 +1,17 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: humiaozuzu
+  description: Server Setup
+  license: "license (BSD, MIT)"
+  min_ansible_version: 1.8
+  role_name: humiaozuzu.server-setup
+  platforms:
+    - name: Ubuntu
+      versions:
+      - trusty
+      - xenial
+  galaxy_tags:
+    - server
+    - setup
