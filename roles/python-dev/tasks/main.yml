@@ -22,7 +22,6 @@
     - libncurses5-dev
     - libldap2-dev
     - libsasl2-dev
-    - libncurses5-dev
 
 
 - name: configure supervisor open file limit
