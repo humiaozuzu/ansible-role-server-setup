@@ -16,12 +16,11 @@ ansible-playbook -i inventory/prod/hosts plays/init-connection.yml -u your-user 
 ansible-playbook -i inventory/prod/hosts plays/init-connection.yml -u your-user --private-key=~/.ssh/id_rsa -l 'your-node'
 
 # when connection is initialized, you can run custom roles
-ansible-playbook -i inventory/prod/hosts plays/setup-python.yml -l 'your-node'
+ansible-playbook -i inventory/prod/hosts plays/setup-server.yml -l 'your-node'
 ```
 
 ### server connection init
 
-- setup ansible running environment
 - configure sudoer
 - add system admin users and ssh key pairs
 - configure ssh
@@ -29,7 +28,7 @@ ansible-playbook -i inventory/prod/hosts plays/setup-python.yml -l 'your-node'
 ### server setup related roles
 
 - configure apt
-- configure ipv6
+- disable ipv6
 - configure dns 
 - configure hosts
 - common settings
@@ -47,16 +46,13 @@ ansible-playbook -i inventory/prod/hosts plays/setup-python.yml -l 'your-node'
 
 ## how to add to your existing ansible project
 
-1.clone this repo as submodule to your ansible project
-
-2.add roles/plugins path to your `ansible.cfg`
+put it in `requirements.yml`
 
 ```
-roles_path=./roles:./black-ansible/roles
-callback_plugins=./black-ansible/plugins/callback
-lookup_plugins=./black-ansible/plugins/lookup
+- src: https://github.com/humiaozuzu/ansible-role-server-setup
+  name: humiaozuzu.server-setup
+  version: master
 ```
-3.link black-ansible playbooks folder to you playbook path
 
  ## testing
 
