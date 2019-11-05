@@ -1,9 +1,16 @@
 ---
+- name: add python ppa
+  apt_repository: repo='ppa:deadsnakes/ppa' state=present update_cache=yes
+
+- name: install python3.6 related packages
+  apt: pkg={{ item }} state=present
+  with_items:
+    - python3.6
+    - python3.6-dev
+
 - name: install python dev related packages
   apt: pkg={{ item }} state=present
   with_items:
-    - python-dev
-    - supervisor
     - zlib1g-dev
     - libjpeg-dev
     - libfreetype6-dev
@@ -22,15 +29,4 @@
     - libncurses5-dev
     - libldap2-dev
     - libsasl2-dev
-
-
-- name: configure supervisor open file limit
-  lineinfile: dest=/etc/default/supervisor line='ulimit -n 51200' state=present
-  notify:
-    - restart supervisor
-
-- name: install virtualenv
-  pip: name={{ item }}
-  with_items:
     - virtualenv
-    - virtualenvwrapper
