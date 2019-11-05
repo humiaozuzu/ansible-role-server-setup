@@ -46,6 +46,8 @@
     - swig
     - openssl
     - ca-certificates
+    - ethtool
+    - dbus
 
 - name: install silversearcher-ag
   apt: pkg=silversearcher-ag
