@@ -18,7 +18,7 @@
   when: ansible_distribution == "Debian" and ansible_distribution_release == "wheezy"
 
 - include: install_ubuntu.yml
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "14.04"
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_release == 'xenial'
 
 - name: remove unwanted kernels
   shell: apt-get -y purge $(dpkg -l|egrep '^ii  linux-(im|he)'|awk '{print $2}'|grep -v {{ kernel_pin_version }})
