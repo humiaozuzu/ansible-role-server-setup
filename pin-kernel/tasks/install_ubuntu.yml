@@ -12,3 +12,6 @@
     - linux-image-generic
     - linux-headers-generic
     - linux-generic
+    - linux-image-aws
+    - linux-headers-aws
+    - linux-aws
