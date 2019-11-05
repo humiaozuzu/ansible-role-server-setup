@@ -1,6 +1,7 @@
 ---
 sysctl_tweak:
   net.netfilter.nf_conntrack_max: 1048576
+  net.netfilter.nf_conntrack_tcp_timeout_established: 3600
   net.netfilter.nf_conntrack_tcp_timeout_fin_wait: 30
   net.netfilter.nf_conntrack_tcp_timeout_time_wait: 30
   net.netfilter.nf_conntrack_tcp_timeout_close_wait: 15
