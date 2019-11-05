@@ -41,3 +41,4 @@
     state: stopped
     enabled: no
   when: aegis_path.stat.exists == true
+  ignore_errors: yes
