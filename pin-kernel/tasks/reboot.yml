@@ -15,7 +15,7 @@
 
 - name: Wait for reboot...
   pause: seconds=20
-  when: rebooting|changed
+  when: rebooting.changed
 
 # Now we will run a local ping to it's IP on this host until it returns.
 - local_action: shell ansible -m ping {{ inventory_hostname }}
@@ -24,4 +24,4 @@
   until: result.rc == 0
   retries: 30
   delay: 10
-  when: rebooting|changed
+  when: rebooting.changed
