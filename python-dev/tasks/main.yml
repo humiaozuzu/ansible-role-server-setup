@@ -3,30 +3,32 @@
   apt_repository: repo='ppa:deadsnakes/ppa' state=present update_cache=yes
 
 - name: install python3.6 related packages
-  apt: pkg={{ item }} state=present
-  with_items:
-    - python3.6
-    - python3.6-dev
+  apt:
+    state: present
+    pkg:
+      - python3.6
+      - python3.6-dev
 
 - name: install python dev related packages
-  apt: pkg={{ item }} state=present
-  with_items:
-    - zlib1g-dev
-    - libjpeg-dev
-    - libfreetype6-dev
-    - libpng12-dev
-    - libffi-dev
-    - libssl-dev
-    - libreadline-dev
-    - libevent-dev
-    - libpq-dev
-    - libmysqlclient-dev
-    - libsqlite3-dev
-    - libyaml-dev
-    - libxml2-dev
-    - libxslt1-dev
-    - libcurl4-openssl-dev
-    - libncurses5-dev
-    - libldap2-dev
-    - libsasl2-dev
-    - virtualenv
+  apt:
+    state: present
+    pkg:
+      - zlib1g-dev
+      - libjpeg-dev
+      - libfreetype6-dev
+      - libpng12-dev
+      - libffi-dev
+      - libssl-dev
+      - libreadline-dev
+      - libevent-dev
+      - libpq-dev
+      - libmysqlclient-dev
+      - libsqlite3-dev
+      - libyaml-dev
+      - libxml2-dev
+      - libxslt1-dev
+      - libcurl4-openssl-dev
+      - libncurses5-dev
+      - libldap2-dev
+      - libsasl2-dev
+      - virtualenv

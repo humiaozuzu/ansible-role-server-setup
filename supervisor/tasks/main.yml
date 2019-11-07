@@ -1,8 +1,6 @@
 ---
 - name: install supervisor
-  apt: pkg={{ item }} state=present
-  with_items:
-    - supervisor
+  apt: pkg=supervisor state=present
 
 - name: configure supervisor open file limit
   lineinfile: dest=/etc/default/supervisor line='ulimit -n 51200' state=present
