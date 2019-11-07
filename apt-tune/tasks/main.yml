@@ -7,10 +7,11 @@
     - 99no-recommends
     - 99no-upgrade
 
-- name: stop apt systemd
-  service:
-    name: '{{ item }}'
-    enabled: no
-    state: stopped
-  with_items:
-    - apt-daily-upgrade
+# - name: stop apt systemd
+#   service:
+#     name: '{{ item }}'
+#     enabled: no
+#     state: stopped
+#   with_items:
+#     - apt-daily-upgrade
+

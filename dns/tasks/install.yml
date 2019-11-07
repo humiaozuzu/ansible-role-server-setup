@@ -1,5 +1,5 @@
 ---
-- name: remove resolvconf
+- name: remove resolvconf package
   apt: pkg=resolvconf state=absent purge=yes
 
 - name: add dhclient hook to prevent it from updating /etc/resolv.conf
@@ -12,3 +12,4 @@
 
 - name: copy resolv.conf
   template: src=resolv.conf.j2 dest=/etc/resolv.conf group=root owner=root mode=0644
+  when: inventory_hostname in dns_nameservers_host_map
