@@ -17,6 +17,20 @@
     - "*      hard    nofile    100000"
     - "*      soft    nofile    100000"
 
+- name: Modprobe nf_conntrack_ipv4 for kernels < 4.19
+  modprobe:
+    name: nf_conntrack_ipv4
+    state: present
+  register: enable_nf_conntrack
+  ignore_errors: yes
+
+- name: Modprobe nf_conntrack for kernels >= 4.19
+  modprobe:
+    name: nf_conntrack
+    state: present
+  when:
+    - enable_nf_conntrack is failed
+
 - name: tweak sysctl
   sysctl: name={{ item.key }} value={{ item.value }} state=present reload=yes
   with_dict: '{{sysctl_tweak}}'
