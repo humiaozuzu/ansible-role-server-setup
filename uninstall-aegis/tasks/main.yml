@@ -11,14 +11,14 @@
     - /etc/apt/sources.list.d/sources-aliyun-0.list
   when: aegis_path.stat.exists == true
 
-# - name: add aliyun ubuntu repository
-#   copy:
-#     src: sources.list
-#     dest: /etc/apt/sources.list
-#     owner: root
-#     group: root
-#     mode: 0644
-#   register: aliyun_repo
+- name: add aliyun ubuntu repository
+  copy:
+    src: sources.list
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: 0644
+  register: aliyun_repo
 
 # - name: apt-get update when repo changed
 #   apt:
