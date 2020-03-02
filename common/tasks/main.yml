@@ -34,7 +34,7 @@
       - debian-goodies
       - ntp
       - vim
-      - python-software-properties
+      - software-properties-common
       - pkg-config
       - build-essential
       - autoconf

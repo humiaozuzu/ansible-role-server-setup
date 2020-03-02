@@ -1,3 +1,9 @@
 ---
+- name: install tzdata
+  apt:
+    state: present
+    pkg:
+      - tzdata
+
 - name: set timezone
   timezone: name="{{ timezone_default }}"

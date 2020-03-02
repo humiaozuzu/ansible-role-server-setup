@@ -1,6 +1,7 @@
 ---
 - name: add python ppa
   apt_repository: repo='ppa:deadsnakes/ppa' state=present update_cache=yes
+  when: ansible_distribution_version <= "16.04"
 
 - name: install python3.6 related packages
   apt:
@@ -16,7 +17,7 @@
       - zlib1g-dev
       - libjpeg-dev
       - libfreetype6-dev
-      - libpng12-dev
+      - libpng-dev
       - libffi-dev
       - libssl-dev
       - libreadline-dev
