@@ -19,3 +19,6 @@
       - linux-image-aws
       - linux-headers-aws
       - linux-aws
+      - linux-image-azure
+      - linux-headers-azure
+      - linux-azure
