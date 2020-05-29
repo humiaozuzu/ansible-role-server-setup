@@ -1,6 +1,9 @@
 ---
+- name: remove old haproxy ppa
+  apt_repository: repo='ppa:vbernat/haproxy-1.8' state=absent
+
 - name: add haproxy ppa
-  apt_repository: repo='ppa:vbernat/haproxy-1.8' state=present update_cache=yes
+  apt_repository: repo='ppa:vbernat/haproxy-2.0' state=present update_cache=yes
 
 - name: install haproxy
   apt:
