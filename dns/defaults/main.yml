@@ -9,4 +9,13 @@ dns_options:
 # set dns for specific host
 dns_nameservers_host_map: {}
 # if dns not specific for host, skip role for this host
-dns_skip_unspecified_host: False
+dns_skip_unspecified_host: True
+
+common_nameservers:
+  google: ['8.8.8.8', '8.8.4.4']
+  jp_iij: ['210.130.0.1', '210.130.1.1']
+  hk_wtt: ['202.130.97.65', '202.130.97.66']
+  kr_sk: ['210.220.163.82', '219.250.36.130']
+  tw_hinet: ['168.95.1.1', '168.95.192.1']
+  tw_tfn: ['61.31.233.1', '61.31.1.1']
+  tw_aptg: ['203.79.224.10', '203.79.224.30']
