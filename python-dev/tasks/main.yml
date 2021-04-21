@@ -3,12 +3,12 @@
   apt_repository: repo='ppa:deadsnakes/ppa' state=present update_cache=yes
   when: ansible_distribution_version <= "16.04"
 
-- name: install python3.6 related packages
+- name: install python3.8 related packages
   apt:
     state: present
     pkg:
-      - python3.6
-      - python3.6-dev
+      - python3.8
+      - python3.8-dev
 
 - name: install python dev related packages
   apt:
