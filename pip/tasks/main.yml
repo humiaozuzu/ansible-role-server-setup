@@ -1,9 +1,9 @@
 ---
 - name: install python-setuptools
-  apt: pkg=python-setuptools state=present
+  apt: pkg=python3-setuptools state=present
 
 - name: install python-pip
-  apt: pkg=python-pip state=present
+  apt: pkg=python3-pip state=present
 
 # - name: install wheel
   # pip: name=wheel state=present

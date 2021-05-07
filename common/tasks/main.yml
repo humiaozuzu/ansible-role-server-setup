@@ -47,6 +47,7 @@
       - ethtool
       - dbus
       - aptitude
+      - gnupg2
 
 - name: install silversearcher-ag
   apt: pkg=silversearcher-ag
