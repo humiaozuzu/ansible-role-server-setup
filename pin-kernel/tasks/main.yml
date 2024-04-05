@@ -14,10 +14,10 @@
     that: "deb_check.stdout.find('ok installed') != -1"
     msg: "grub-pc is not installed, you should install it manually"
 
-- include: install_debian.yml
+- include_tasks: install_debian.yml
   when: ansible_distribution == "Debian" and ansible_distribution_release == "wheezy"
 
-- include: install_ubuntu.yml
+- include_tasks: install_ubuntu.yml
   when: ansible_distribution == "Ubuntu" and ansible_distribution_release == 'xenial'
 
 - name: remove unwanted kernels

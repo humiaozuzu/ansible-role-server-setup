@@ -1,6 +1,6 @@
 ---
-- include: user.yml
+- include_tasks: user.yml
   when: users is defined
 
-- include: host_user.yml
+- include_tasks: host_user.yml
   when: host_users is defined
